@@ -1,0 +1,52 @@
+<div class="padding-3">
+  <div class="flex gap-1 align-itmes-baseline">
+    <mat-form-field>
+      <mat-label>Id or Name</mat-label>
+      <input matInput placeholder="Id or Name" [(ngModel)]="filter">
+    </mat-form-field>
+    <button mat-raised-button class="background-color-whitesmoke" (click)="searchPokemon(true)">Cerca</button>
+  </div>
+  <div *ngIf="pokemon.length > 0">
+    <table mat-table [dataSource]="pokemon">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> <b>Id</b> </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> <b>Name</b> </th>
+        <td mat-cell *matCellDef="let element"> {{element.name | firstLetterUpperCase}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> <b>Types</b> </th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngFor="let type of element.typesList; index as i">
+            <span [ngStyle]="{'background-color': getColorByType(type)}" class="first-type-container"
+              *ngIf="i === 0">{{type | firstLetterUpperCase}}</span>
+            <span [ngStyle]="{'background-color': getColorByType(type)}" class="second-type-container"
+              *ngIf="i !== 0">{{type | firstLetterUpperCase}}</span>
+          </span>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element" class="text-align-end">
+          <mat-icon class="cursor-pointer" color="warn" matTooltip="Dettagli" matTooltipPosition="above"
+            (click)="openInfoDialog(element)">info</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div *ngIf="pokemon.length > 0">
+    <mat-paginator [length]="pagination.totalItems" [pageIndex]="pagination.page" [pageSize]="pagination.itemsPerPage"
+      [pageSizeOptions]="[10, 15, 20, 25]" [showFirstLastButtons]="true" (page)="onPageChanged($event)">
+    </mat-paginator>
+  </div>
+</div>

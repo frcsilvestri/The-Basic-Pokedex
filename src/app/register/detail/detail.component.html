@@ -1,0 +1,17 @@
+<div *ngIf="pokemonDescr && pokemonImg">
+    <h1 mat-dialog-title color="warn" align="center">
+        {{pokemon.name | firstLetterUpperCase}}
+    </h1>
+    <div mat-dialog-content align="center">
+        <img class="little-bigger" src="{{pokemonImg}}" alt="Pokemon image">
+        <p>{{pokemonDescr}}</p>
+        <span *ngFor="let type of pokemon.typesList; index as i"> 
+            <span [ngStyle]="{'background-color': getColorByType(type)}" class="first-type-container" *ngIf="i === 0">{{type | firstLetterUpperCase}}</span>
+            <span [ngStyle]="{'background-color': getColorByType(type)}" class="second-type-container" *ngIf="i !== 0">{{type | firstLetterUpperCase}}</span>
+        </span>
+        <div class="height-weight-container">Height: {{pokemon.height}}m Weight: {{pokemon.weight}}kg</div>
+    </div>
+    <div mat-dialog-actions align="center">
+        <button mat-button (click)="closeDialog()">Close</button>
+    </div>
+</div>

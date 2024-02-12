@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import {HttpClientModule} from '@angular/common/http';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [RouterModule, HttpClientModule, MatToolbarModule],
   selector: 'pokedex-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'pokedex';
+  title = 'The Basic Pokedex';
 }
